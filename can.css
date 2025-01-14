@@ -149,3 +149,21 @@ h3 {
     transition: max-height .5s ease-out; /* Smooth toggle animation */
     overflow: hidden; /* Hide content when collapsed */
 }
+
+
+/* Mobile-friendly adjustments */
+@media (max-width: 600px) {
+    h3 {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    input, button, select {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .friend-total {
+        font-size: 12px;
+    }
+}
