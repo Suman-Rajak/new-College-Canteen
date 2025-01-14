@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Billing</title>
+    <link rel="stylesheet" href="can.css">
+</head>
+<body>
+    <h2>Canteen Billing</h2>
+    <div class="friend">
+        <div id="friends-container" class="collapsible-content">
+            <!-- Friends will be dynamically generated here -->
+        </div>
+    </div>
+    
+
+    <div class="general-items">
+        <h3 onclick="toggleSection('general-items-content')">General Items ▼</h3>
+        <div id="general-items-content" class="collapsible-content" style="display: none;">
+            <label for="general-item-names">Item Names:</label>
+            <input type="text" id="general-item-names" placeholder="e.g., Chips, Soda" oninput="calculateGeneralTotal()">
+            
+            <label for="general-item-prices">Item Prices:</label>
+            <input type="text" id="general-item-prices" placeholder="e.g., 30, 50" oninput="calculateGeneralTotal()">
+            
+            <label for="general-item-quantities">Item Quantities:</label>
+            <input type="text" id="general-item-quantities" placeholder="e.g., 2, 3" oninput="calculateGeneralTotal()">
+            
+            Total for General Items: <span id="general-total">0</span>
+        </div>
+    </div>
+        
+    
+    <div class="final-bill-section">
+        <h3>Final Bill</h3>
+        <div id="final-bill">No items ordered yet.</div>
+    </div>     
+    
+
+    <div class="total-section">
+        Total: <span id="grand-total">0</span>
+    </div>
+
+
+    <div class="paid">
+        <label for="paid-by">Paid By: </label>
+        <input type="text" id="paid-by" placeholder="Enter name" style="padding: 5px; border-radius: 5px; border: 1px solid #ddd;">
+        
+        <label for="payment-method">Payment Method: </label>
+        <select id="payment-method" style="padding: 5px; border-radius: 5px; border: 1px solid #ddd;">
+            <option value="" disabled selected>Select Method</option>
+            <option value="UPI">UPI</option>
+            <option value="Cash">Cash</option>
+        </select>
+    </div>
+    <div class="button-group">
+        <button class="copy" onclick="copyToClipboard()">Copy to Clipboard</button>
+<!--         <button class="export" onclick="exportToGoogleSheets()">Export to Google Sheets</button> -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="can.js"></script>
+    <!-- Google Sheets -->
+    <script src="https://apis.google.com/js/api.js"></script>
+</body>
+</html>

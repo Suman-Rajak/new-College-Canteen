@@ -1,0 +1,103 @@
+function copyToClipboard() {
+    let text = '';
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-GB');
+    text += `${formattedDate}\n`;
+
+    const friends = document.querySelectorAll('.friend');
+
+    // Check if friends exist
+    if (!friends.length) {
+        alert('No friends found to copy data from.');
+        return;
+    }
+
+    // Calculate general items
+    const generalItemNames = document.getElementById('general-item-names')?.value.split(',') || [];
+    const generalItemPrices = document.getElementById('general-item-prices')?.value.split(',') || [];
+    const generalItemQuantities = document.getElementById('general-item-quantities')?.value.split(',') || [];
+
+    let generalItemsOutput = '';
+    let generalTotal = 0;
+
+    generalItemNames.forEach((itemName, index) => {
+        const price = parseFloat(generalItemPrices[index]) || 0;
+        const quantity = parseInt(generalItemQuantities[index]) || 0;
+        const itemTotal = price * quantity;
+
+        if (itemTotal > 0) {
+            generalItemsOutput += `${itemName.trim()} (${price}) X ${quantity} -> ${itemTotal}\n`;
+            generalTotal += itemTotal; // Update general total
+        }
+    });
+
+    friends.forEach(friend => {
+        const nameElement = friend.querySelector('.friend-name'); // Assuming you have a '.friend-name' class
+        const totalElement = friend.querySelector('.friend-total');
+
+        // Validate elements exist
+        if (!nameElement) {
+            console.warn('Friend name element is missing for one of the friends.');
+            return;
+        }
+        if (!totalElement) {
+            console.warn('Friend total element is missing for one of the friends.');
+            return;
+        }
+
+        const name = nameElement.innerText;
+        const total = totalElement.innerText;
+
+        console.log(`Processing friend: ${name}, Total: ${total}`);
+
+        if (total > 0) {
+            const quantities = friend.querySelectorAll('.item-quantity');
+            let fixedItemsOutput = '';
+
+            if (fixedItems && fixedItems.length > 0) {
+                quantities.forEach((quantityInput, index) => {
+                    const quantity = parseInt(quantityInput.value) || 0;
+                    const item = fixedItems[index] || {};
+
+                    if (quantity > 0 && item && item.price) {
+                        const itemTotal = quantity * item.price;
+                        fixedItemsOutput += `${item.name} (${item.price}) X ${quantity} -> ${itemTotal}\n`;
+                    }
+                });
+            }
+
+            const otherItemNames = friend.querySelector('.other-item-names')?.value.split(',') || [];
+            const otherItemPrices = friend.querySelector('.other-item-prices')?.value.split(',') || [];
+            const otherItemQuantities = friend.querySelector('.other-item-quantities')?.value.split(',') || [];
+            let otherItemsOutput = '';
+
+            otherItemNames.forEach((itemName, index) => {
+                const price = parseFloat(otherItemPrices[index]) || 0;
+                const quantity = parseInt(otherItemQuantities[index]) || 0;
+                const itemTotal = price * quantity;
+
+                if (itemTotal > 0) {
+                    otherItemsOutput += `${itemName.trim()} (${price}) X ${quantity} -> ${itemTotal}\n`;
+                }
+            });
+
+            text += `\n${name} - \n${fixedItemsOutput}${otherItemsOutput}Total -> ${total}\n`;
+        }
+    });
+
+    const grandTotal = parseFloat(document.getElementById('grand-total')?.innerText) || 0;
+    if (generalTotal > 0) {
+        text += `\nGeneral Items:\n${generalItemsOutput}Total for General Items -> ${generalTotal}`;
+    }
+    text += `\n\nGRAND TOTAL -> ${grandTotal}`;
+    const paidBy = document.getElementById('paid-by')?.value || 'Unknown';
+    const paymentMethod = document.getElementById('payment-method')?.value || 'Unknown';
+    text += `\nPaid By: ${paidBy}\nPayment Method: ${paymentMethod}`;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Copied to clipboard!');
+    }).catch(err => {
+        console.error('Could not copy text: ', err);
+    });
+}
