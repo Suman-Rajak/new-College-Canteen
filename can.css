@@ -130,36 +130,6 @@ label {
     padding : .7rem;
 }
 
-@media (max-width: 600px) {
-    body {
-        padding: 5px; /* Further reduced padding */
-    }
-
-    h2 {
-        font-size: 16px; /* Reduced font size */
-    }
-
-    .friend h3 {
-        font-size: 14px; /* Reduced font size */
-    }
-
-    button {
-        font-size: 10px; /* Reduced font size */
-        padding: 5px; /* Reduced padding */
-    }
-
-    .friend input {
-        font-size: 12px; /* Reduced font size */
-    }
-
-    .total-section, .general-items {
-        font-size: 12px; /* Reduced font size */
-    }
-
-    .friend-total {
-        font-size: 12px; /* Reduced font size */
-    }
-}
 
 /* Styling for collapsible sections */
 h3 {
@@ -178,25 +148,4 @@ h3 {
     display: block; /*Initially visible*/
     transition: max-height .5s ease-out; /* Smooth toggle animation */
     overflow: hidden; /* Hide content when collapsed */
-}
-
-/* Mobile-friendly adjustments */
-@media (max-width: 600px) {
-    h3 {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .collapsible-content {
-        max-height: 300px; /* Limit height for scrolling content */
-    }
-
-    input, button, select {
-        font-size: 12px;
-        padding: 6px;
-    }
-
-    .friend-total {
-        font-size: 12px;
-    }
 }
