@@ -309,7 +309,7 @@ function copyToClipboard() {
     text += `\n\nGRAND TOTAL -> ${grandTotal}`;
     const paidBy = document.getElementById('paid-by')?.value || 'Unknown';
     const paymentMethod = document.getElementById('payment-method')?.value || 'Unknown';
-    text += `\nPaid By: ${paidBy}\nPayment Method: ${paymentMethod}`;
+    text += `\nPaid By: ${paidBy}\nPayment Method: ${paymentMethod}\n\nFINAL BILL - \n${finbill}`;
 
     // Copy to clipboard
     navigator.clipboard.writeText(text).then(() => {
